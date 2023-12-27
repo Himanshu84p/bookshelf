@@ -1,0 +1,31 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<body>
+  <h2>All books</h2>
+  <div class="row admin-book-container">
+    <%for(book of allBooks) {%>
+    <div class="card admin-book-card col-sm-10 col-md-6 col-lg-4">
+      <img src="<%= book.image %>" class="card-img-top" alt="book cover" />
+      <div class="card-body">
+        <h6 class="card-title"><%= book.title %></h6>
+        <p class="card-text">&#x20B9; <%= book.price %></p>
+        <a
+          href="/admin/<%= book.id %>"
+          class="btn btn-primary"
+          data-mdb-ripple-init
+          >Edit</a
+        >
+        <form
+          class="delete-book-form"
+          action="/admin/<%= book.id %>?_method=DELETE"
+          method="post"
+        >
+          <button class="btn btn-danger" type="submit" data-mdb-ripple-init>
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
+    <%}%>
+  </div>
+</body>

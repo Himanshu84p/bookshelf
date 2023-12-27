@@ -1,0 +1,69 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h1 class="heading">Add New book</h1>
+  <div class="container main-container">
+    <form action="/admin/new" method="post">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="book[title]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="author" class="form-label">Author</label>
+        <input
+          type="text"
+          class="form-control"
+          id="author"
+          name="book[author]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Image Url</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image"
+          name="book[image]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="genre" class="form-label">Genre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="genre"
+          name="book[genre]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="isbn" class="form-label">ISBN</label>
+        <input
+          type="text"
+          class="form-control"
+          id="isbn"
+          name="book[ISBN]"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          name="book[price]"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Add Book</button>
+    </form>
+  </div>
+</body>

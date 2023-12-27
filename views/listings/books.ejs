@@ -1,0 +1,24 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <h1 class="heading">Welcome to the BookShelf</h1>
+  <div class="container main-container">
+    <div class="row row-cols-4">
+      <%for(book of allBooks) { %>
+
+      <div class="book col">
+        <img
+          class="book-home-image"
+          src="<%= book.image%>"
+          alt="Book cover"
+          width="200px"
+          height="250px"
+        />
+        <a class="book-home-title" href="/books/<%= book.id %>"
+          ><%=book.title%></a
+        >
+        <p><%= book.genre%></p>
+      </div>
+      <%}%>
+    </div>
+  </div>
+</body>
