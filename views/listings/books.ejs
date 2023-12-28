@@ -2,10 +2,10 @@
 <body>
   <h1 class="heading">Welcome to the BookShelf</h1>
   <div class="container main-container">
-    <div class="row row-cols-4">
+    <div class="row user-book-container">
       <%for(book of allBooks) { %>
 
-      <div class="book col">
+      <div class="book user-book-card col-sm-10 col-md-6 col-lg-4">
         <img
           class="book-home-image"
           src="<%= book.image%>"

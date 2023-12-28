@@ -3,6 +3,7 @@ const User = require("../models/user.js");
 const router = express.Router();
 const Book = require("../models/book.js");
 const { isLoggedIn } = require("../middleware");
+const Order = require("../models/order.js");
 
 //Admin Index route
 router.get("/admin", isLoggedIn, (req, res) => {
@@ -20,6 +21,21 @@ router.get("/admin/users", async (req, res) => {
     try {
       let allUsers = await User.find({});
       res.render("admin/users.ejs", { allUsers });
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    res.send("access denied");
+  }
+});
+
+//-----------------------------Order Route--------------------------------
+//GET User Route
+router.get("/admin/orders", async (req, res) => {
+  if (req.user.username == "admin") {
+    try {
+      let allOrders = await Order.find({});
+      res.render("admin/orders.ejs", { allOrders });
     } catch (error) {
       console.log(error);
     }

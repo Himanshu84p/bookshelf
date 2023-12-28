@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");
 const passport = require("passport");
+const Order = require("../models/order.js");
 
 //Signup get and post requests
 router.get("/signup", (req, res) => {
@@ -37,6 +38,16 @@ router.post(
     }
   }
 );
+
+//order routes
+router.get("/orders", async (req, res) => {
+  const ownerId = req.user._id;
+  const ownerUsername = req.user.username;
+  console.log(ownerId);
+  const allOrders = await Order.find({ owner: ownerId });
+  console.log(allOrders);
+  res.render("listings/orders.ejs", { allOrders, ownerUsername });
+});
 
 //logout requests
 router.get("/logout", (req, res, next) => {

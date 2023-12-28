@@ -11,9 +11,11 @@ const session = require("express-session");
 const userRouter = require("./routes/user.js");
 const cartRouter = require("./routes/cart.js");
 const adminRouter = require("./routes/admin.js");
+const paymentRouter = require("./routes/payment.js");
 const ejsMate = require("ejs-mate");
 const { isLoggedIn } = require("./middleware.js");
 const methodOverride = require("method-override");
+const bodyParser = require("body-parser");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/bookshelf";
 
@@ -35,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(methodOverride("_method"));
+app.use(bodyParser.json());
 
 const sessionOptions = {
   secret: process.env.SECRET,
@@ -61,6 +64,7 @@ app.use((req, res, next) => {
 app.use("/", userRouter);
 app.use("/", cartRouter);
 app.use("/", adminRouter);
+app.use("/", paymentRouter);
 
 //Index Route
 
