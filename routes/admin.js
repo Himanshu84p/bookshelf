@@ -16,11 +16,12 @@ router.get("/admin", isLoggedIn, (req, res) => {
 
 //-----------------------------User Route--------------------------------
 //GET User Route
-router.get("/admin/users", async (req, res) => {
+router.get("/admin/users", isLoggedIn, async (req, res) => {
   if (req.user.username == "admin") {
     try {
       let allUsers = await User.find({});
-      res.render("admin/users.ejs", { allUsers });
+      let totalUsers = await User.find({}).countDocuments();
+      res.render("admin/users.ejs", { allUsers, totalUsers });
     } catch (error) {
       console.log(error);
     }
@@ -31,11 +32,23 @@ router.get("/admin/users", async (req, res) => {
 
 //-----------------------------Order Route--------------------------------
 //GET User Route
-router.get("/admin/orders", async (req, res) => {
+router.get("/admin/orders", isLoggedIn, async (req, res) => {
   if (req.user.username == "admin") {
     try {
       let allOrders = await Order.find({});
-      res.render("admin/orders.ejs", { allOrders });
+      let totalOrders = await Order.find({}).countDocuments();
+      let completedOrders = await Order.find({
+        status: "completed",
+      }).countDocuments();
+      let pendingOrders = await Order.find({
+        status: "pending",
+      }).countDocuments();
+      res.render("admin/orders.ejs", {
+        allOrders,
+        totalOrders,
+        completedOrders,
+        pendingOrders,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +58,7 @@ router.get("/admin/orders", async (req, res) => {
 });
 
 //-----------------------------Book Route--------------------------------
-//Add get and post route
+//Add book get and post route
 router.get("/admin/new", isLoggedIn, (req, res) => {
   if (req.user.username == "admin") {
     res.render("admin/new.ejs");
@@ -59,9 +72,12 @@ router.post("/admin/new", isLoggedIn, async (req, res) => {
     try {
       let newBook = new Book(req.body.book);
       await newBook.save();
+      req.flash("success", "New book listing created.");
       res.redirect("/books");
     } catch (error) {
+      req.flash("error", "ISBN Should be unique.");
       console.log(error);
+      res.redirect("/admin/new");
     }
   } else {
     res.send("access denied");
@@ -111,6 +127,7 @@ router.put("/admin/:id", isLoggedIn, async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+    req.flash("success", "Book edited successfully");
     res.redirect("/admin/books");
   } else {
     res.send("access denied");
@@ -127,6 +144,7 @@ router.delete("/admin/:id", isLoggedIn, async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+    req.flash("success", "Book deleted successfully");
     res.redirect("/admin/books");
   } else {
     res.send("access denied");

@@ -1,36 +1,42 @@
 <% layout("/layouts/boilerplate.ejs") %>
 <body>
-  <form action="/signup" method="post">
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input
-        type="text"
-        name="username"
-        class="form-control"
-        id="username"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">E-mail</label>
-      <input
-        type="email"
-        name="email"
-        class="form-control"
-        id="email"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input
-        type="password"
-        name="password"
-        class="form-control"
-        id="password"
-        required
-      />
-    </div>
-    <button type="submit" class="btn btn-primary">Signup</button>
-  </form>
+  <div class="center">
+    <h1 class="heading">SignUp</h1>
+    <form action="/signup" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          name="username"
+          class="form-control w-75 m-auto"
+          id="username"
+          placeholder="Username"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input
+          type="email"
+          name="email"
+          class="form-control w-75 m-auto"
+          id="email"
+          placeholder="E-mail"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control w-75 m-auto"
+          id="password"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary m-auto">Signup</button>
+    </form>
+  </div>
 </body>

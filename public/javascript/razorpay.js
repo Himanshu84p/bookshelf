@@ -4,7 +4,6 @@ document.getElementById("payButton").addEventListener("click", async () => {
   const cartInput = document.getElementById("cart");
   const cartData = await JSON.parse(cartInput.value);
   const books = cartData.books;
-  console.log(books);
 
   // Make an API request to create a new order
   const response = await fetch("/create-order", {
@@ -15,7 +14,7 @@ document.getElementById("payButton").addEventListener("click", async () => {
     body: JSON.stringify({
       amount,
       currency: "INR",
-      books, // Change to preferred currency
+      books,
     }),
   });
 
@@ -29,6 +28,9 @@ document.getElementById("payButton").addEventListener("click", async () => {
     name: "BOOKSHELF",
     description: "Payment for Books",
     order_id: order.id,
+    theme: {
+      color: "#3399cc", // Customize the color of the checkout form
+    },
     handler: async (response) => {
       // Send the payment ID to your server for verification
       const paymentId = response.razorpay_payment_id;

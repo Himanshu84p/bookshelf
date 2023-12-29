@@ -30,7 +30,6 @@ router.post("/create-order", async (req, res) => {
     });
 
     await newOrder.save();
-    // Render the EJS view with the order details
     res.json(order);
   } catch (error) {
     console.error(error);
@@ -40,7 +39,7 @@ router.post("/create-order", async (req, res) => {
 
 router.post("/payment-success", async (req, res) => {
   // Handle the payment success callback here
-  // Update the order status in your database, send email confirmation, etc.
+  // Update the order status in database
   const { orderId } = req.body;
 
   try {
@@ -54,8 +53,6 @@ router.post("/payment-success", async (req, res) => {
     // Update the order status to 'completed' (or any other status you prefer)
     order.status = "completed";
     await order.save();
-
-    // You can perform additional actions here, such as sending email notifications, etc.
 
     res.json({ status: "success" });
   } catch (error) {

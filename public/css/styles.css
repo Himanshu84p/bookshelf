@@ -5,6 +5,9 @@ body {
   flex-direction: column;
 }
 
+.center {
+  text-align: center;
+}
 .navbar-custom {
   background-color: #176b87;
 }
@@ -44,10 +47,19 @@ h2 {
   margin: 2rem 0;
   text-align: center;
 }
+.medium-heading {
+  font-size: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
 
 .empty-cart-container {
   margin: 2rem auto;
   text-align: center;
+}
+
+.cart-form-label {
+  color: #eef5ff;
 }
 
 .book {

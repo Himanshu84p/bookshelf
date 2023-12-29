@@ -16,6 +16,7 @@ const ejsMate = require("ejs-mate");
 const { isLoggedIn } = require("./middleware.js");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
+const flash = require("connect-flash");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/bookshelf";
 
@@ -46,6 +47,7 @@ const sessionOptions = {
 };
 
 app.use(session(sessionOptions));
+app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -58,6 +60,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.currUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   next();
 });
 
@@ -86,30 +90,6 @@ app.get("/books/:id", async (req, res) => {
 app.get("/cart", isLoggedIn, async (req, res) => {
   res.redirect("/books");
 });
-
-//demo method for testing purpose
-// app.get("/userdemo", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "123@gmail.com",
-//     username: "testUser",
-//   });
-
-//   let registeredUser = await User.register(fakeUser, "test");
-//   res.send(registeredUser);
-// });
-
-// app.get("/book", async (req, res) => {
-//   let sampleBook = new Book({
-//     title: "Atomic Habits",
-//     author: "James Clear",
-//     genre: "Self-help",
-//     ISBN: "9781847941831",
-//     price: 300,
-//   });
-//   await sampleBook.save();
-//   console.log("book was saved");
-//   res.send("successfully saved book");
-// });
 
 app.listen(process.env.PORT, () => {
   console.log("Port is listening on 8080");

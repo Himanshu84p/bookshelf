@@ -15,8 +15,10 @@ router.post("/signup", async (req, res) => {
   try {
     const registeredUser = await User.register(newUser, password);
     console.log(registeredUser);
+    req.flash("success", "Registered successfully");
     res.redirect("/books");
   } catch (error) {
+    req.flash("error", "Username already exist");
     res.redirect("/signup");
   }
 });
@@ -29,11 +31,16 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
-  passport.authenticate("local", { failureRedirect: "/login" }),
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
   (req, res) => {
     if (req.user.username == "admin") {
+      req.flash("success", "Admin Login successfully");
       res.redirect("/admin");
     } else {
+      req.flash("success", "Login successfully");
       res.redirect("/books");
     }
   }
@@ -55,6 +62,7 @@ router.get("/logout", (req, res, next) => {
     if (err) {
       return next(err);
     }
+    req.flash("success", "Logout successfully");
     res.redirect("/login");
   });
 });

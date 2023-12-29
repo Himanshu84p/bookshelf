@@ -69,6 +69,7 @@ router.post("/cart", isLoggedIn, async (req, res) => {
         }, 0);
 
         await cart.save();
+        req.flash("success", "cart updated successfully");
         res.render("listings/cart.ejs", { cart });
         // return res.status(200).send({ message: "book added" });
       }
@@ -86,8 +87,6 @@ router.post("/cart", isLoggedIn, async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-
-  // res.redirect("/cart.ejs");
 });
 
 //delete item in cart
